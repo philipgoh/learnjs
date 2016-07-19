@@ -63,9 +63,9 @@ learnjs.applyObject = function(obj, elem) {
   }
 }
 
-learnjs.flashElement(elem, content) {
+learnjs.flashElement = function(elem, content) {
   elem.fadeOut("fast", function() {
   	elem.html(content);
   	elem.fadeIn();
-  }
+  });
 }
