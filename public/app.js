@@ -27,8 +27,9 @@ learnjs.problemView = function(data) {
 
   function checkAnswerClick() {
     if(checkAnswer()) {
-      learnjs.buildCorrectFlash(problemNumber);
-      learnjs.flashElement(resultFlash, "Correct!");
+      var correctFlash = learnjs.template("correct-flash");
+      correctFlash.find("a").attr("href", "#problem-" + (problemNumber + 1));
+      learnjs.flashElement(resultFlash, correctFlash);
     } else {
       learnjs.flashElement(resultFlash, "Incorrect!");
     }
@@ -75,10 +76,6 @@ learnjs.template = function(name) {
 	return $(".templates ." + name).clone();
 }
 
-learnjs.buildCorrrectFlash = function(problemNum) {
-  var correctFlash = learnjs.template("correct-flash");
-  var href = problemNum + 1 >= learnjs.problems.length ? "" : "#problem" + (problemNum + 1);
-  correctFlash.find("a").attr("href", href);
-  if(!href)
-    correctFlash.find("a").text("You're finished");
+learnjs.buildCorrectFlash = function(problemNum) {
+
 }
