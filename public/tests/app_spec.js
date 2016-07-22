@@ -28,35 +28,38 @@ describe("LearnJS", function(){
     expect(learnjs.showView).toHaveBeenCalledWith(window.location.hash);
   });
 
-  describe("problem view", function() {
-    it("has a title that includes the problem number", function() {
+  //describe("problem view", function() {
+  //  it("has a title that includes the problem number", function() {
+  //    var view = learnjs.problemView("1");
+      //expect(view.text()).toEqual("\nProblem #1\n" + "What is truth?\n" + "function problem() { return __; } \n");
+  //  });
+  //});
+  
+  describe("answer section", function() {    
+    it("can check correct answer by clicking submit button", function () {
       var view = learnjs.problemView("1");
-      // expect(view.text()).toEqual("\nProblem #1\n" + "What is truth?\n" + "function problem() { return __; } \n");
+      view.find(".answer").val("true");
+      expect(view.find(".answer").val()).toEqual("true");
+      view.find(".check-btn").click();
+      expect(view.find(".result span").text()).toEqual("Correct!");
+      expect(view.find("a").text()).toEqual("Next Problem");
+    });
 
-      describe("answer section", function() {
-        it("can check correct answer by clicking submit button", function () {
-          view.find(".answer").val("true");
-          view.find(".check-btn").click();
-          expect(view.find(".result").text()).toEqual("Correct!");
-          expect(view.find("a").text()).toEqual("Next Problem");
-        });
-
-        it("rejects and incorrect answer", function() {
-          view.find(".answer").val("false");
-          view.find(".check-btn").click();
-          expect(view.find(".result").text()).toEqual("Incorrect!");
-        });
-      });
-      
-      view = learnjs.problemView("2");
-      describe("final answer section", function() {
-      	it("displays finished message when correct answer given", function() {
-      	  view.find(".answer").val("7");
-      	  view.find(".check-btn").click();
-      	  expect(view.find(".result").text()).toEqual("Correct!");
-      	  expect(view.find("a").text()).toEqual("Finished!");
-      	});
-      });
+    it("rejects and incorrect answer", function() {
+      var view = learnjs.problemView("1");
+      view.find(".answer").val("false");
+      view.find(".check-btn").click();
+      expect(view.find(".result").text()).toEqual("Incorrect!");
+    });
+  });
+  
+  describe("final answer section", function() {
+    it("displays finished message when correct answer given", function() {
+      var view = learnjs.problemView("2");
+      view.find(".answer").val("7");
+      view.find(".check-btn").click();
+      expect(view.find(".result span").text()).toEqual("Correct!");
+      expect(view.find(".result a").text()).toEqual("Finished!");
     });
   });
 });
