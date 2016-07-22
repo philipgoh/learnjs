@@ -38,6 +38,7 @@ describe("LearnJS", function(){
           view.find(".answer").val("true");
           view.find(".check-btn").click();
           expect(view.find(".result").text()).toEqual("Correct!");
+          expect(view.find("a").text()).toEqual("Next Problem");
         });
 
         it("rejects and incorrect answer", function() {
@@ -45,6 +46,16 @@ describe("LearnJS", function(){
           view.find(".check-btn").click();
           expect(view.find(".result").text()).toEqual("Incorrect!");
         });
+      });
+      
+      view = learnjs.problemView("2");
+      describe("final answer section", function() {
+      	it("displays finished message when correct answer given", function() {
+      	  view.find(".answer").val("7");
+      	  view.find(".check-btn").click();
+      	  expect(view.find(".result").text()).toEqual("Correct!");
+      	  expect(view.find("a").text()).toEqual("Finished!");
+      	});
       });
     });
   });
